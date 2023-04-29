@@ -1,0 +1,51 @@
+$break-points: (
+  tablet: 767px,
+  desktop: 1024px,
+  ) !default; // !default: pass dynamic values on runtime
+
+// for range media queries
+@mixin range-media($lower, $upper) {
+  @media (min-width: $lower) and (max-width: $upper) {
+    @content;
+  }
+}
+
+// for regular media queries : max-width
+@mixin media-max($width) {
+  @media (max-width: $width) {
+    @content;
+  }
+}
+
+// for regular media queries: min-width
+@mixin media-min($width) {
+  @media (min-width: $width) {
+    @content;
+  }
+}
+
+
+@mixin tablet-to-desktop {
+  @include range-media(map-get($break-points, "tablet"), map-get($break-points, "desktop")) {
+    @content;
+  }
+}
+
+// show case default usage
+@mixin table-to-default {
+  @include range-media(map-get($break-points, "tablet"), "1000px") {
+    @content;
+  }
+}
+
+@mixin max-desktop {
+  @include media-max(map-get($break-points, "desktop")) {
+    @content;
+  }
+}
+
+@mixin min-desktop {
+  @include media-min(map-get($break-points, "desktop")) {
+    @content;
+  }
+}
